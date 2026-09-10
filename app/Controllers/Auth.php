@@ -41,6 +41,10 @@ class Auth
         require __DIR__ . '/../Views/auth/login.php';
     }
 
+    public function listUSers():void{
+        
+        require __DIR__ . '/../Views/auth/listUsers.php';
+    }
     public function login(): void
     {
         $email = trim($_POST['email'] ?? '');
@@ -62,6 +66,12 @@ class Auth
             $error = 'Invalid email or password.';
             require __DIR__ . '/../Views/auth/login.php';
         }
+    }
+
+    public function requestForUsers():void{
+        
+        $users = $this->taskModel->getAllUsers();
+        require __DIR__ . '/../Views/auth/listUsers.php';
     }
 
     public function logout(): void

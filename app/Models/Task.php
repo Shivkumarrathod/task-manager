@@ -70,5 +70,10 @@ class Task
         $stmt = $this->db->prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?');
         return $stmt->execute([$id, $userId]);
     }
+    public function getAllUsers(): array
+    {
+        $stmt = $this->db->query('SELECT id, name, email FROM users');
+        return $stmt->fetchAll();
+    }
 
 }

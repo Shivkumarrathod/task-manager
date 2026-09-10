@@ -20,4 +20,6 @@ $router->post('/create-account', 'Auth@store');     // handles the create accoun
 $router->get('/login', 'Auth@showLogin');           // shows the login form
 $router->post('/login', 'Auth@login');              // handles the login form submit
 $router->get('/logout', 'Auth@logout');             // logout and destroy session
+$router->get('/users','Auth@listUSers');
+$router->post('/users','Auth@requestForUsers');
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

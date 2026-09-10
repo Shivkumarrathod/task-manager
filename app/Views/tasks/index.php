@@ -19,42 +19,20 @@
       <h1>TaskFlow</h1>
       <div>
         <a href="/tasks/add" class="btn btn-primary">+ New Task</a>
+        <a href="/users" class="btn btn-primary">List Users</a>
         <a href="/logout" class="btn btn-danger">Logout</a>
       </div>
     </div>
 
-
-    <table class="table table-bordered bg-white">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Created</th>
-          <th style="width:160px;">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($tasks as $task): ?>
-          <tr>
-            <td><?= htmlspecialchars($task['title']) ?></td>
-            <td><?= htmlspecialchars($task['description']) ?></td>
-            <td>
-              <span class="badge <?= $task['status'] === 'done' ? 'bg-success' : 'bg-warning text-dark' ?>">
-                <?= htmlspecialchars($task['status']) ?>
-              </span>
-            </td>
-            <td><?= htmlspecialchars($task['created_at']) ?></td>
-            <td>
-              <a href="/tasks/edit?id=<?= $task['id'] ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
-              <a href="/tasks/delete?id=<?= $task['id'] ?>" class="btn btn-sm btn-outline-danger"
-                onclick="return confirm('Delete this task?')">Delete</a>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+    <?php foreach ($tasks as $task): ?>
+      <div class="grid gap-3" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));" >
+        <?php require __DIR__ . '/../components/taskCards.php'; ?>
+      </div>
+    <?php endforeach; ?>
+ 
   </div>
 </body>
-
+<script > 
+  console.log(<?= json_encode($tasks) ?>);
+</script>
 </html>
