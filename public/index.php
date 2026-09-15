@@ -22,4 +22,6 @@ $router->post('/login', 'Auth@login');              // handles the login form su
 $router->get('/logout', 'Auth@logout');             // logout and destroy session
 $router->get('/users','Auth@listUSers');
 $router->post('/users','Auth@requestForUsers');
+$router->get('/health', 'HealthController@check');
+$router->get('/healthz', 'HealthController@check');
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

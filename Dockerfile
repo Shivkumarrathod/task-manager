@@ -14,6 +14,9 @@ RUN sed -ri -e 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.c
 
 COPY . /var/www/html/
 
+# CA bundle for verifying Azure Database for MySQL Flexible Server TLS certs
+ENV DB_SSL_CA=/var/www/html/certs/mysql-ca-bundle.pem
+
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80

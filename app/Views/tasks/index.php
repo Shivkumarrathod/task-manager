@@ -2,6 +2,7 @@
 
 /**
  * @var array $tasks List of task arrays with keys: id, title, description, status, created_at
+ * @var string|null $health Health status (e.g., 'healthy' or 'unhealthy')
  */
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,15 @@
 <body class="bg-light">
   <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>TaskFlow</h1>
+      <h1 class="d-flex align-items-center">
+        TaskFlow
+        <?php if (!empty($health)): ?>
+          <?php $healthData = json_decode($health); ?>
+          <span class="badge <?= ($healthData->status ?? '') === 'healthy' ? 'bg-success' : 'bg-danger' ?> fs-6 ms-3">
+            <?= htmlspecialchars($healthData->status ?? 'unknown') ?>
+          </span>
+        <?php endif; ?>
+      </h1>
       <div>
         <a href="/tasks/add" class="btn btn-primary">+ New Task</a>
         <a href="/users" class="btn btn-primary">List Users</a>

@@ -18,7 +18,27 @@ class TaskController
             header('Location: /create-account');
             exit;
         }
-        
+
+        $dbStatus = 'connected';
+        $isHealthy = true;
+
+        try {
+            $db = Database::getConnection();
+            $db->query('SELECT 1');
+        } catch (Throwable $e) {
+            $dbStatus = 'unreachable';
+            $isHealthy = false;
+        }
+
+        $health = json_encode([
+            'status' => $isHealthy ? 'healthy' : 'unhealthy',
+            'timestamp' => date('c'),
+            'services' => [
+                'app' => 'running',
+                'database' => $dbStatus,
+            ],
+        ], JSON_PRETTY_PRINT);
+
         $tasks = $this->taskModel->all((int) $_SESSION['user_id']);
         require __DIR__ . '/../Views/tasks/index.php';
     }
